@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "sort.h"
 
-void quick_sort_recurcive(int *array, int left, int right);
-int partition(int *array, int left, int right);
+void quick_sort_recurcive(int *array, int left, int right, size_t size);
+int partition(int *array, int left, int right, size_t size);
 void swap(int *a, int *b);
 
 /**
@@ -22,9 +22,10 @@ void swap(int *a, int *b)
  * @array: pointer to the array to partition
  * @left: left part
  * @right: right part
+ * @size: size of array
  * Return: pivot
  */
-int partition(int *array, int left, int right)
+int partition(int *array, int left, int right, size_t size)
 {
 	int pivot = array[right];
 	int i = left - 1, j;
@@ -46,27 +47,26 @@ int partition(int *array, int left, int right)
  * quick_sort - sorts an rray using quick sort algorithm
  * @array: pointer to array to sort
  * @size: size of the array
- * Return: nothing
  */
 void quick_sort(int *array, size_t size)
 {
-	quick_sort_recurcive(array, 0, size - 1);
+	quick_sort_recurcive(array, 0, size - 1, size);
 }
 /**
  * quick_sort_recurcive - compares left and right partitions
  * @array: pointer to array
  * @left: left part
  * @right: right part
- * Return: nothing
+ * @size: size of the array
  */
-void quick_sort_recurcive(int *array, int left, int right)
+void quick_sort_recurcive(int *array, int left, int right, size_t size)
 {
 	if (left < right)
 	{
 		int pivotIndex;
 
-		pivotIndex = partition(array, left, right);
-		quick_sort_recurcive(array, left, pivotIndex - 1);
-		quick_sort_recurcive(array, pivotIndex + 1, right);
+		pivotIndex = partition(array, left, right, size);
+		quick_sort_recurcive(array, left, pivotIndex - 1, size);
+		quick_sort_recurcive(array, pivotIndex + 1, right, size);
 	}
 }
